@@ -2,6 +2,9 @@ package trabalho1;
 
 import lineares.pilhas.Pilha;
 
+/*
+ * @autores: Gustavo Baroni Bruder e Felipe Melio Tomelin
+ * */
 public class Calculadora {
     private Pilha<Double> pilha;
 
