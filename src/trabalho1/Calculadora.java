@@ -39,7 +39,10 @@ public class Calculadora {
                 double resultado = this.realizarOperacao(penultimo, ultimo, elemento);
                 this.pilha.push(resultado);
             } else {
-                throw new ExpressaoInvalidaException("Apenas números (0-9) e operadores (+, -, *, /) são aceitos!");
+                throw new ExpressaoInvalidaException(
+                        "Apenas números (0-9) e operadores (+, -, *, /) são aceitos!\n" +
+                        "Para números decimais use o ponto (.)"
+                );
             }
         }
 
