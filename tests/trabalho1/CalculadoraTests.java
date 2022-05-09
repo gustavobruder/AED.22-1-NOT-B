@@ -110,6 +110,6 @@ public class CalculadoraTests {
         Executable execCalc = () -> calc.calcular("1 A - 4 5 + *");
         Exception exception = assertThrows(ExpressaoInvalidaException.class, execCalc);
 
-        assertEquals(exception.getMessage(), "Expressão inválida: Apenas números (0-9) e operadores (+, -, *, /) são aceitos!");
+        assertEquals(exception.getMessage(), "Expressão inválida: Apenas números (0-9) e operadores (+, -, *, /) são aceitos!\nPara números decimais use o ponto (.)");
     }
 }
