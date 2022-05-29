@@ -15,38 +15,63 @@ public class NoArvoreBinaria<T> {
         this.dir = dir;
     }
 
+    public T getInfo() {
+        return this.info;
+    }
+
+    public void setInfo(T info) {
+        this.info = info;
+    }
+
+    public NoArvoreBinaria<T> getEsq() {
+        return esq;
+    }
+
+    public void setEsq(NoArvoreBinaria<T> esq) {
+        this.esq = esq;
+    }
+
+    public NoArvoreBinaria<T> getDir() {
+        return dir;
+    }
+
+    public void setDir(NoArvoreBinaria<T> dir) {
+        this.dir = dir;
+    }
+
     public NoArvoreBinaria<T> pertence(T info) {
         if (this.info.equals(info)) {
             return this;
         }
 
-        NoArvoreBinaria<T> infoPertence = null;
-        if (this.dir != null) {
-            infoPertence = this.dir.pertence(info);
+        NoArvoreBinaria<T> no = null;
+
+        if (this.esq != null) {
+            no = this.esq.pertence(info);
         }
-        if (infoPertence == null && this.esq != null) {
-            infoPertence = this.esq.pertence(info);
+        if (no == null && this.dir != null) {
+            no = this.dir.pertence(info);
         }
-        return infoPertence;
+
+        return no;
     }
 
     public String imprimePre() {
-        StringBuilder builder = new StringBuilder()
-                .append("<")
-                .append(this.info.toString());
+        String retorno = "<" + this.info;
 
-        if (this.esq != null) {
-            builder.append(this.esq.imprimePre());
+        if (this.esq == null) {
+            retorno += "<>";
         } else {
-            builder.append("<>");
+            retorno += this.esq.imprimePre();
         }
 
-        if (this.dir != null) {
-            builder.append(this.dir.imprimePre());
+        if (this.dir == null){
+            retorno += "<>";
         } else {
-            builder.append("<>");
+            retorno += this.dir.imprimePre();
         }
 
-        return builder.append(">").toString();
+        retorno += ">";
+        return retorno;
     }
 }
