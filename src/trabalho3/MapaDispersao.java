@@ -12,7 +12,7 @@ public class MapaDispersao<K, T> {
         this.setTabela(quantidade);
     }
 
-    public void setTabela(int quantidade) {
+    private void setTabela(int quantidade) {
         this.tabela = new Lista[quantidade];
 
         for (int i = 0; i < quantidade; i++) {

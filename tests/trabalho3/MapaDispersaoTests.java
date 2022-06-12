@@ -124,4 +124,25 @@ public class MapaDispersaoTests {
 
         assertEquals(3, mapa.quantosElementos());
     }
+
+    @Test
+    public void testeIgualAoVisualgo() {
+        MapaDispersao<Integer, Integer> mapa = new MapaDispersao<>(11);
+
+        mapa.inserir(11, 11);
+        mapa.inserir(1, 1);
+        mapa.inserir(24, 24);
+        mapa.inserir(14, 14);
+        mapa.inserir(27, 27);
+        mapa.inserir(28, 28);
+        mapa.inserir(18, 18);
+        mapa.inserir(8, 8);
+        mapa.inserir(21, 21);
+        mapa.inserir(13, 13);
+        mapa.inserir(7, 7);
+        mapa.inserir(10, 10);
+        mapa.inserir(35, 35);
+
+        assertEquals(13, mapa.quantosElementos());
+    }
 }
