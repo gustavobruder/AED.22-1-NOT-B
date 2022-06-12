@@ -1,5 +1,7 @@
 package trabalho3;
 
+import java.util.Objects;
+
 /*
  * @autores: Gustavo Baroni Bruder, Felipe Melio Tomelin e Ana Carolina da Silva
  * */
@@ -12,23 +14,22 @@ public class MapaDispersao<K, T> {
 
     public void setTabela(int quantidade) {
         this.tabela = new Lista[quantidade];
+
+        for (int i = 0; i < quantidade; i++) {
+            this.tabela[i] = new ListaEncadeada<K, T>();
+        }
     }
 
     private int calcularHash(K chave) {
-        int chaveHash = chave.hashCode();
+        int chaveHash = Objects.hashCode(chave);
+        int chaveHashHexa = chaveHash & 0x7fffffff;
         int tamanhoTabela = this.tabela.length;
-        int hash = chaveHash % tamanhoTabela;
-        return hash;
+        return chaveHashHexa % tamanhoTabela;
     }
 
     public boolean inserir(K chave, T dado) {
         int hash = this.calcularHash(chave);
         Lista<K, T> lista = this.tabela[hash];
-
-        if (lista == null) {
-            lista = new ListaEncadeada<K, T>();
-            this.tabela[hash] = lista;
-        }
 
         int index = lista.buscar(chave);
         if (index == -1) {
@@ -42,11 +43,6 @@ public class MapaDispersao<K, T> {
     public T remover(K chave) {
         int hash = this.calcularHash(chave);
         Lista<K, T> lista = this.tabela[hash];
-
-        if (lista == null) {
-            lista = new ListaEncadeada<K, T>();
-            this.tabela[hash] = lista;
-        }
 
         int index = lista.buscar(chave);
         if (index == -1) {
@@ -62,11 +58,6 @@ public class MapaDispersao<K, T> {
         int hash = this.calcularHash(chave);
         Lista<K, T> lista = this.tabela[hash];
 
-        if (lista == null) {
-            lista = new ListaEncadeada<K, T>();
-            this.tabela[hash] = lista;
-        }
-
         int index = lista.buscar(chave);
         if (index == -1) {
             return null;
@@ -78,11 +69,8 @@ public class MapaDispersao<K, T> {
     public int quantosElementos() {
         int tamanho = 0;
 
-        for (int i = 0; i < this.tabela.length; i++) {
-            Lista<K, T> lista = this.tabela[i];
-            if (lista != null) {
-                tamanho += lista.getTamanho();
-            }
+        for (Lista<K, T> lista : this.tabela) {
+            tamanho += lista.getTamanho();
         }
 
         return tamanho;
