@@ -1,5 +1,8 @@
 package trabalho3;
 
+/*
+ * @autores: Gustavo Baroni Bruder, Felipe Melio Tomelin e Ana Carolina da Silva
+ * */
 public class ListaEncadeada<K, T> implements Lista<K, T> {
     private NoLista<K, T> primeiro;
     private NoLista<K, T> ultimo;
@@ -82,5 +85,32 @@ public class ListaEncadeada<K, T> implements Lista<K, T> {
         }
 
         return null;
+    }
+
+    @Override
+    public T buscarValor(K chave) {
+        NoLista<K, T> p = this.primeiro;
+
+        while (p != null) {
+            if (p.getChave().equals(chave)) {
+                return p.getValor();
+            }
+            p = p.getProximo();
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("[");
+        NoLista<K, T> p = this.primeiro;
+
+        while (p != null) {
+            builder.append(p.toString()).append(", ");
+            p = p.getProximo();
+        }
+
+        return builder.append("]").toString();
     }
 }

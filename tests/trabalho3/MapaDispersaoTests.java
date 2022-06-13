@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+ * @autores: Gustavo Baroni Bruder, Felipe Melio Tomelin e Ana Carolina da Silva
+ * */
 public class MapaDispersaoTests {
 
     @Test
@@ -144,5 +147,44 @@ public class MapaDispersaoTests {
         mapa.inserir(35, 35);
 
         assertEquals(13, mapa.quantosElementos());
+    }
+
+    @Test
+    public void deveTratarCasosDeException() {
+        MapaDispersao<Integer, Integer> mapa1 = new MapaDispersao<>(0);
+
+        Exception e = null;
+        try {
+            mapa1.inserir(1, 1);
+        } catch(Exception ex) {
+            e = ex;
+        }
+        assertNotNull(e);
+        e = null;
+
+        try {
+            mapa1.remover(1);
+        } catch(Exception ex) {
+            e = ex;
+        }
+        assertNotNull(e);
+        e = null;
+
+        try {
+            mapa1.buscar(1);
+        } catch(Exception ex) {
+            e = ex;
+        }
+        assertNotNull(e);
+        e = null;
+
+        mapa1.quantosElementos();
+
+        try {
+            MapaDispersao<Integer, Integer> mapa2 = new MapaDispersao<>(-1);
+        } catch(Exception ex) {
+            e = ex;
+        }
+        assertNotNull(e);
     }
 }

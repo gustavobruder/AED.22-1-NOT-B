@@ -1,5 +1,8 @@
 package trabalho3;
 
+/*
+ * @autores: Gustavo Baroni Bruder, Felipe Melio Tomelin e Ana Carolina da Silva
+ * */
 public class NoLista<K, T> {
     private K chave;
     private T valor;
@@ -24,5 +27,17 @@ public class NoLista<K, T> {
 
     public void setProximo(NoLista<K, T> proximo) {
         this.proximo = proximo;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("(")
+            .append("Chave: ")
+            .append(this.getChave())
+            .append(", ")
+            .append("Valor: ")
+            .append(this.getValor())
+            .append(")")
+            .toString();
     }
 }

@@ -9,6 +9,9 @@ public class MapaDispersao<K, T> {
     private Lista<K, T>[] tabela;
 
     public MapaDispersao(int quantidade) {
+        if (quantidade < 0) {
+            throw new RuntimeException("Tamanho do mapa deve ser maior ou igual a 0");
+        }
         this.setTabela(quantidade);
     }
 
@@ -24,6 +27,11 @@ public class MapaDispersao<K, T> {
         int chaveHash = Objects.hashCode(chave);
         int chaveHashHexa = chaveHash & 0x7fffffff;
         int tamanhoTabela = this.tabela.length;
+
+        if (tamanhoTabela <= 0) {
+            throw new RuntimeException("Falha ao realizar operação, capacidade do mapa inválida.");
+        }
+
         return chaveHashHexa % tamanhoTabela;
     }
 
@@ -43,27 +51,19 @@ public class MapaDispersao<K, T> {
     public T remover(K chave) {
         int hash = this.calcularHash(chave);
         Lista<K, T> lista = this.tabela[hash];
+        T dado = lista.buscarValor(chave);
 
-        int index = lista.buscar(chave);
-        if (index == -1) {
-            return null;
+        if (dado != null) {
+            lista.retirar(chave);
         }
 
-        T dado = lista.pegar(index);
-        lista.retirar(chave);
         return dado;
     }
 
     public T buscar(K chave) {
         int hash = this.calcularHash(chave);
         Lista<K, T> lista = this.tabela[hash];
-
-        int index = lista.buscar(chave);
-        if (index == -1) {
-            return null;
-        }
-
-        return lista.pegar(index);
+        return lista.buscarValor(chave);
     }
 
     public int quantosElementos() {
@@ -74,5 +74,24 @@ public class MapaDispersao<K, T> {
         }
 
         return tamanho;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < this.tabela.length; i++) {
+            Lista<K, T> lista = this.tabela[i];
+
+            builder
+                .append("[")
+                .append(i)
+                .append("]")
+                .append(" = ")
+                .append(lista.toString())
+                .append("\n");
+        }
+
+        return builder.toString();
     }
 }
