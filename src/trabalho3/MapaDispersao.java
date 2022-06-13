@@ -10,7 +10,7 @@ public class MapaDispersao<K, T> {
 
     public MapaDispersao(int quantidade) {
         if (quantidade < 0) {
-            throw new RuntimeException("Tamanho do mapa deve ser maior ou igual a 0");
+            throw new IllegalArgumentException("Tamanho do mapa deve ser maior ou igual a 0");
         }
         this.setTabela(quantidade);
     }
