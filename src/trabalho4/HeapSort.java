@@ -6,48 +6,52 @@ package trabalho4;
 public class HeapSort<T extends Comparable<T>> implements Sort<T>{
 
     @Override
-    public void sort(T[] arr) {
-        int n = arr.length;
+    public void sort(T[] vetor) {
+        int tamanhoVetor = vetor.length;
 
-        // Build heap (rearrange array)
-        for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(arr, n, i);
+        // Cria o heap (reorganiza o vetor)
+        for (int i = tamanhoVetor / 2 - 1; i >= 0; i--) {
+            heapify(vetor, tamanhoVetor, i);
+        }
 
-        // One by one extract an element from heap
-        for (int i = n - 1; i > 0; i--) {
-            // Move current root to end
-            T temp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = temp;
+        // Um por um extrai o elemento do heap
+        for (int i = tamanhoVetor - 1; i > 0; i--) {
 
-            // call max heapify on the reduced heap
-            heapify(arr, i, 0);
+            // Move a raiz atual para o fim
+            T temp = vetor[0];
+            vetor[0] = vetor[i];
+            vetor[i] = temp;
+
+            // Chama maximo 'heapify' no heap reduzido
+            heapify(vetor, i, 0);
         }
     }
 
-    // To heapify a subtree rooted with node i which is
-    // an index in arr[]. n is size of heap
-    void heapify(T[] arr, int n, int i) {
-        int largest = i; // Initialize largest as root
-        int l = 2 * i + 1; // left = 2*i + 1
-        int r = 2 * i + 2; // right = 2*i + 2
+    // Para executar o 'heapify' na sub-arvore da raiz
+    void heapify(T[] vetor, int tamanhoHeap, int index) {
+        // Inicializar maior como raiz
+        int maior = index;
+        int esquerda = 2 * index + 1;
+        int direita = 2 * index + 2;
 
-        // If left child is larger than root
-        if (l < n && arr[l].compareTo(arr[largest]) > 0)
-            largest = l;
+        // Se 'esquerda' for maior que a raiz
+        if (esquerda < tamanhoHeap && vetor[esquerda].compareTo(vetor[maior]) > 0) {
+            maior = esquerda;
+        }
 
-        // If right child is larger than largest so far
-        if (r < n && arr[r].compareTo(arr[largest]) > 0)
-            largest = r;
+        // Se 'direita' for maior que a raiz
+        if (direita < tamanhoHeap && vetor[direita].compareTo(vetor[maior]) > 0) {
+            maior = direita;
+        }
 
-        // If largest is not root
-        if (largest != i) {
-            T swap = arr[i];
-            arr[i] = arr[largest];
-            arr[largest] = swap;
+        // Se 'maior' nao for raiz
+        if (maior != index) {
+            T temp = vetor[index];
+            vetor[index] = vetor[maior];
+            vetor[maior] = temp;
 
-            // Recursively heapify the affected sub-tree
-            heapify(arr, n, largest);
+            // Recursivamente executa 'heapify' na sub-arvore afetada
+            heapify(vetor, tamanhoHeap, maior);
         }
     }
 }
